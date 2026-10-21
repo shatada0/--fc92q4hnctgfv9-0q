@@ -1,0 +1,28 @@
+name: run-tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest # ОС раннера; Firefox на нём уже установлен
+    steps:
+      - name: Получить код
+        uses: actions/checkout@v5
+
+      - name: Установить Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Установить зависимости
+        run: pip install -r requirements.txt
+
+      - name: Запустить тесты (unit, API, UI в headless Firefox)
+        run: pytest -v
+        env:
+          # webdriver-manager скачивает geckodriver через GitHub API; без токена лимит 60 запросов в час
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

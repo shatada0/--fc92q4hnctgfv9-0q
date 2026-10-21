@@ -1,0 +1,57 @@
+﻿k6.exe : time="2026-10-21T16:26:13+03:00" level=warning msg="Request Failed" error="Get \"http://127.0.0.1:5000/api/cal
+c?a=2&b=3&op=add\": dial tcp 127.0.0.1:5000: connectex: Only one usage of each socket address (protocol/network address
+/port) is normally permitted."
+At line:9 char:1
++ & $k6 run --no-color --quiet -e SLEEP=0 --vus 50 --duration 10s --sum ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (time="2026-10-2...lly permitted.":String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+time="2026-10-21T16:26:13+03:00" level=error msg="GoError: the body is null so we can't transform it to JSON - this lik
+ely was because of a request error getting the response\n\tat reflect.methodValueCall (native)\n\tat результат 5 (file:
+///C:/Users/shatada/Desktop/%D1%82%D0%B5%D1%81%D1%82%D0%BF%D0%BE/load/get.js:23:42(4))\n\tat go.k6.io/k6/v2/internal/js
+/modules/k6.(*K6).Check-fm (native)\n\tat default (file:///C:/Users/shatada/Desktop/%D1%82%D0%B5%D1%81%D1%82%D0%BF%D0%B
+E/load/get.js:21:8(17))\n" executor=constant-vus hint="script exception" scenario=default source=stacktrace
+
+
+  █ THRESHOLDS 
+
+    checks
+    ✓ 'rate>0.99' rate=99.99%
+
+    http_req_duration
+    ✓ 'p(95)<300' p(95)=49.76ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 23118  2303.769612/s
+    checks_succeeded...: 99.99% 23116 out of 23118
+    checks_failed......: 0.00%  2 out of 23118
+
+    ✗ статус 200
+      ↳  99% — ✓ 11558 / ✗ 1
+    ✗ результат 5
+      ↳  99% — ✓ 11558 / ✗ 1
+
+    HTTP
+    http_req_duration..............: avg=43.15ms min=0s      med=45.6ms  max=68.96ms p(90)=49.3ms  p(95)=49.76ms
+      { expected_response:true }...: avg=43.15ms min=8.03ms  med=45.6ms  max=68.96ms p(90)=49.3ms  p(95)=49.76ms
+    http_req_failed................: 0.00%  1 out of 11559
+    http_reqs......................: 11559  1151.884806/s
+
+    EXECUTION
+    iteration_duration.............: avg=43.32ms min=11.09ms med=45.73ms max=71.52ms p(90)=49.45ms p(95)=49.93ms
+    iterations.....................: 11559  1151.884806/s
+    vus............................: 50     min=50         max=50
+    vus_max........................: 50     min=50         max=50
+
+    NETWORK
+    data_received..................: 2.1 MB 206 kB/s
+    data_sent......................: 1.1 MB 107 kB/s
+
+
+

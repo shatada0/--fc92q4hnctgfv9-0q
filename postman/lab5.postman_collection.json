@@ -1,0 +1,142 @@
+{
+  "info": {
+    "name": "ЛР5 — JSONPlaceholder Users",
+    "description": "GET/POST/PUT пользователя и негативный GET несуществующего пользователя. Адрес API в переменной коллекции baseUrl.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://jsonplaceholder.typicode.com" }
+  ],
+  "item": [
+    {
+      "name": "GET — получить пользователя",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/users/1"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Статус 200', () => pm.response.to.have.status(200));",
+              "pm.test('Ответ в формате JSON', () => pm.response.to.be.json);",
+              "pm.test('Время ответа меньше 2000 мс', () => pm.expect(pm.response.responseTime).to.be.below(2000));",
+              "",
+              "const schema = {",
+              "  type: 'object',",
+              "  required: ['id', 'name', 'username', 'email', 'address', 'company'],",
+              "  properties: {",
+              "    id: { type: 'integer' },",
+              "    name: { type: 'string' },",
+              "    username: { type: 'string' },",
+              "    email: { type: 'string' },",
+              "    address: { type: 'object' },",
+              "    company: { type: 'object' }",
+              "  }",
+              "};",
+              "pm.test('Структура JSON соответствует схеме', () => pm.response.to.have.jsonSchema(schema));",
+              "",
+              "pm.test('Значения полей', () => {",
+              "  const user = pm.response.json();",
+              "  pm.expect(user.id).to.eql(1);",
+              "  pm.expect(user.name).to.eql('Leanne Graham');",
+              "  pm.expect(user.email).to.eql('Sincere@april.biz');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST — создать пользователя",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json; charset=UTF-8" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Иван Петров\",\n  \"username\": \"ivan\",\n  \"email\": \"ivan@example.com\"\n}"
+        },
+        "url": "{{baseUrl}}/users"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Статус 201 Created', () => pm.response.to.have.status(201));",
+              "",
+              "pm.test('Структура JSON: есть числовой id', () => pm.response.to.have.jsonSchema({",
+              "  type: 'object',",
+              "  required: ['id', 'name', 'username', 'email'],",
+              "  properties: { id: { type: 'integer' } }",
+              "}));",
+              "",
+              "pm.test('Поля совпадают с отправленными', () => {",
+              "  const sent = JSON.parse(pm.request.body.raw);",
+              "  const user = pm.response.json();",
+              "  pm.expect(user.name).to.eql(sent.name);",
+              "  pm.expect(user.username).to.eql(sent.username);",
+              "  pm.expect(user.email).to.eql(sent.email);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "PUT — обновить пользователя",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json; charset=UTF-8" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 1,\n  \"name\": \"Иван Петров\",\n  \"email\": \"ivan.new@example.com\"\n}"
+        },
+        "url": "{{baseUrl}}/users/1"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Статус 200', () => pm.response.to.have.status(200));",
+              "",
+              "pm.test('Структура JSON', () => pm.response.to.have.jsonSchema({",
+              "  type: 'object',",
+              "  required: ['id', 'name', 'email'],",
+              "  properties: { id: { type: 'integer' }, name: { type: 'string' }, email: { type: 'string' } }",
+              "}));",
+              "",
+              "pm.test('Ответ совпадает с отправленными данными', () => {",
+              "  pm.expect(pm.response.json()).to.eql(JSON.parse(pm.request.body.raw));",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET — несуществующий пользователь (негативный)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/users/9999"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Статус 404', () => pm.response.to.have.status(404));",
+              "pm.test('Тело ответа — пустой объект', () => pm.expect(pm.response.json()).to.eql({}));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

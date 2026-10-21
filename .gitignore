@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.idea/
+
+# Android
+mobile/.gradle/
+mobile/.kotlin/
+mobile/build/
+mobile/app/build/
+mobile/local.properties

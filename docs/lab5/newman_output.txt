@@ -1,0 +1,60 @@
+﻿node.exe : npm warn deprecated har-validator@5.1.5: this library is no longer supported
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (npm warn deprec...onger supported:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+npm warn deprecated uuid@3.4.0: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  F
+or CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+npm warn deprecated uuid@8.3.2: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  F
+or CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+npm warn deprecated @faker-js/faker@5.5.3: Please update to a newer version.
+newman
+
+ЛР5 — JSONPlaceholder Users
+
+Root GET — получить пользователя
+  GET https://jsonplaceholder.typicode.com/users/1 [200 OK, 1.46kB, 276ms]
+  Pass  Статус 200
+  Pass  Ответ в формате JSON
+  Pass  Время ответа меньше 2000 мс
+  Pass  Структура JSON соответствует схеме
+  Pass  Значения полей
+
+Root POST — создать пользователя
+  POST https://jsonplaceholder.typicode.com/users [201 Created, 1.14kB, 161ms]
+  Pass  Статус 201 Created
+  Pass  Структура JSON: есть числовой id
+  Pass  Поля совпадают с отправленными
+
+Root PUT — обновить пользователя
+  PUT https://jsonplaceholder.typicode.com/users/1 [200 OK, 1.02kB, 187ms]
+  Pass  Статус 200
+  Pass  Структура JSON
+  Pass  Ответ совпадает с отправленными данными
+
+Root GET — несуществующий пользователь (негативный)
+  GET https://jsonplaceholder.typicode.com/users/9999 [404 Not Found, 931B, 84ms]
+  Pass  Статус 404
+  Pass  Тело ответа — пустой объект
+
+--------------------------------------------------------------------
+|                         |           executed |            failed |
+--------------------------+--------------------+--------------------
+|              iterations |                  1 |                 0 |
+--------------------------+--------------------+--------------------
+|                requests |                  4 |                 0 |
+--------------------------+--------------------+--------------------
+|            test-scripts |                  4 |                 0 |
+--------------------------+--------------------+--------------------
+|      prerequest-scripts |                  0 |                 0 |
+--------------------------+--------------------+--------------------
+|              assertions |                 13 |                 0 |
+--------------------------------------------------------------------
+| total run duration: 842ms                                        |
+--------------------------------------------------------------------
+| total data received: 696B (approx)                               |
+--------------------------------------------------------------------
+| average response time: 177ms [min: 84ms, max: 276ms, s.d.: 68ms] |
+--------------------------------------------------------------------

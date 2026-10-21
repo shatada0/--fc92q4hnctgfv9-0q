@@ -1,0 +1,6 @@
+flask
+pytest
+requests
+selenium
+webdriver-manager
+Appium-Python-Client

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Задачи{% endblock %}
+{% block content %}
+<h1>Список задач</h1>
+<form id="todo-form">
+  <input id="new-task" placeholder="Что нужно сделать?" autocomplete="off">
+  <p><button id="add-btn" type="button">Добавить</button></p>
+</form>
+<p>
+  <button class="filter" type="button" data-filter="all">Все</button>
+  <button class="filter" type="button" data-filter="active">Активные</button>
+  <button class="filter" type="button" data-filter="done">Выполненные</button>
+</p>
+<ol id="task-list"></ol>
+<p>Осталось: <span id="counter">0</span></p>
+<button id="clear-done" type="button">Очистить выполненные</button>
+<script>
+  // Баги на этой странице заложены намеренно (ЛР2), список: docs/lab2/seeded_bugs.md. Не чинить.
+  let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+  let filter = 'all';
+  const input = document.getElementById('new-task');
+  const list = document.getElementById('task-list');
+
+  const save = () => localStorage.setItem('tasks', JSON.stringify(tasks));
+  const updateCounter = () => {
+    document.getElementById('counter').textContent = tasks.filter(t => !t.done).length;
+  };
+
+  function render() {
+    list.innerHTML = '';
+    tasks.forEach((task, i) => {
+      if ((filter === 'active' && task.done) || (filter === 'done' && !task.done)) return;
+      const li = document.createElement('li');
+      li.innerHTML = `<label><input type="checkbox" ${task.done ? 'checked' : ''}> <span>${task.text}</span></label> <button type="button">Удалить</button>`;
+      li.querySelector('input').onchange = e => { task.done = e.target.checked; render(); };
+      li.querySelector('button').onclick = () => remove(i + 1);
+      list.append(li);
+    });
+  }
+
+  function remove(number) {
+    tasks.splice(number, 1);
+    save(); render(); updateCounter();
+  }
+
+  document.getElementById('add-btn').onclick = () => {
+    if (input.value === '') return;
+    tasks.push({ text: input.value, done: false });
+    input.value = '';
+    save(); render(); updateCounter();
+  };
+
+  document.querySelectorAll('.filter').forEach(b => {
+    b.onclick = () => { filter = b.dataset.filter; render(); };
+  });
+
+  document.getElementById('clear-done').onclick = () => {
+    tasks = tasks.filter(t => t.done);
+    save(); render(); updateCounter();
+  };
+
+  render(); updateCounter();
+</script>
+{% endblock %}

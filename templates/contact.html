@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Обратная связь{% endblock %}
+{% block content %}
+<h1>Обратная связь</h1>
+{% if sent %}<p id="success" class="success">Спасибо! Сообщение отправлено.</p>{% endif %}
+<form method="post" novalidate>
+  <label for="name">Имя*</label>
+  <input id="name" name="name" value="{{ form.name }}">
+  <span id="name-error" class="error">{{ errors.name }}</span>
+
+  <label for="email">Email*</label>
+  <input id="email" name="email" type="email" value="{{ form.email }}">
+  <span id="email-error" class="error">{{ errors.email }}</span>
+
+  <label for="phone">Телефон</label>
+  <input id="phone" name="phone" type="tel" value="{{ form.phone }}">
+  <span id="phone-error" class="error">{{ errors.phone }}</span>
+
+  <label for="topic">Тема</label>
+  <select id="topic" name="topic">
+    {% for t in topics %}<option {{ 'selected' if form.topic == t }}>{{ t }}</option>{% endfor %}
+  </select>
+
+  <label for="message">Сообщение*</label>
+  <textarea id="message" name="message" rows="4">{{ form.message }}</textarea>
+  <span id="message-error" class="error">{{ errors.message }}</span>
+
+  <label><input id="consent" name="consent" type="checkbox" {{ 'checked' if form.consent }}> Согласен на обработку данных*</label>
+  <span id="consent-error" class="error">{{ errors.consent }}</span>
+
+  <p><button id="submit">Отправить</button></p>
+</form>
+{% endblock %}

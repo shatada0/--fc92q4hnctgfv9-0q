@@ -1,0 +1,10 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.13.15, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\shatada\Desktop\тестпо\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\shatada\Desktop\тестпо
+configfile: pytest.ini
+collecting ... collected 1 item
+
+mobile/test_notes.py::test_add_note PASSED                               [100%]
+
+============================== 1 passed in 5.81s ==============================

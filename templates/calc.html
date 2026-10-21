@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Калькулятор{% endblock %}
+{% block content %}
+<h1>Калькулятор</h1>
+<form method="post">
+  <label for="a">Первое число</label>
+  <input id="a" name="a" value="{{ form.a }}">
+  <label for="op">Операция</label>
+  <select id="op" name="op">
+    {% for key, sign in ops.items() %}
+    <option value="{{ key }}" {{ 'selected' if form.op == key }}>{{ sign }}</option>
+    {% endfor %}
+  </select>
+  <label for="b">Второе число</label>
+  <input id="b" name="b" value="{{ form.b }}">
+  <p>
+    <button id="equals">=</button>
+    <a id="clear" href="{{ url_for('calc') }}">C</a>
+  </p>
+</form>
+{% if result is not none %}<p>Результат: <output id="result">{{ result }}</output></p>{% endif %}
+{% if error %}<p id="error" class="error">{{ error }}</p>{% endif %}
+{% endblock %}

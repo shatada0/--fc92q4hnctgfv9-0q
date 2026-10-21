@@ -1,0 +1,41 @@
+﻿
+
+  █ THRESHOLDS 
+
+    checks
+    ✓ 'rate>0.99' rate=100.00%
+
+    http_req_duration
+    ✓ 'p(95)<300' p(95)=26.3ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 600     19.741777/s
+    checks_succeeded...: 100.00% 600 out of 600
+    checks_failed......: 0.00%   0 out of 600
+
+    ✓ статус 200
+    ✓ результат 5
+
+    HTTP
+    http_req_duration..............: avg=12.13ms min=505.7µs med=13.09ms max=44.48ms p(90)=20.09ms p(95)=26.3ms
+      { expected_response:true }...: avg=12.13ms min=505.7µs med=13.09ms max=44.48ms p(90)=20.09ms p(95)=26.3ms
+    http_req_failed................: 0.00% 0 out of 300
+    http_reqs......................: 300   9.870888/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.01s   min=1s      med=1.01s   max=1.04s   p(90)=1.02s   p(95)=1.02s 
+    iterations.....................: 300   9.870888/s
+    vus............................: 10    min=10       max=10
+    vus_max........................: 10    min=10       max=10
+
+    NETWORK
+    data_received..................: 54 kB 1.8 kB/s
+    data_sent......................: 28 kB 918 B/s
+
+
+

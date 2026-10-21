@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} — учебный стенд</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 480px; margin: 2rem auto; padding: 0 1rem; }
+    nav a { margin-right: 1rem; }
+    label { display: block; margin: .75rem 0 .25rem; }
+    input:not([type=checkbox]), select, textarea { width: 100%; box-sizing: border-box; padding: .4rem; }
+    .error { color: #c00; }
+    .success { color: #070; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('calc') }}">Калькулятор</a>
+    <a href="{{ url_for('todo') }}">Задачи</a>
+    <a href="{{ url_for('login') }}">Вход</a>
+    <a href="{{ url_for('contact') }}">Обратная связь</a>
+  </nav>
+  {% block content %}{% endblock %}
+</body>
+</html>
